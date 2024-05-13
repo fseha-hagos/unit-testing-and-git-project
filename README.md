@@ -13,3 +13,4 @@ By collaborating effectively as a team, you can streamline the unit testing proc
 -> display student grade
 -> remove/ delete student
 -> and over all calculate the gpa, cgpa of every student registered
+best way to do that is by doing test first
