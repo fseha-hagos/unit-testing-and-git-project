@@ -1,10 +1,25 @@
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
- @Test
-    public void testAddGrade() {
-        GradingSystem system = new GradingSystem();
-        system.addStudent("Kebede", 101);
-        system.addGrade(101, 95); // Add grade 95 for student with ID 101
-        Assertions.assertEquals(95, system.getAverageGrade(101));
+
+public class GradingTest {
+
+    Grading grading;
+
+    @BeforeEach
+    void setUp() {
+        grading = new Grading("ugr/121212", "Kiki", "1999", "Female");
     }
-     
+
+    @Test
+    void testAddStudentGrade() {
+        boolean result = grading.AddStudentGrade("ugr/121212", "1999", "4", "3/2/4/3", "SE101/SE102/SE103/SE104", "Programming/Networking/COA/Operating");
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    void testAddStudentGradeWithInvalidYear() {
+        boolean result = grading.AddStudentGrade("0", "5", "4", "3/2/4/3", "SE101/SE102/SE103/SE104", "Programming/Networking/COA/Operating");
+        Assertions.assertFalse(result);
+    }
+}
