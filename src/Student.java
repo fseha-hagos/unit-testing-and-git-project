@@ -1,0 +1,61 @@
+
+abstract class Student
+{
+    // Fields
+    private String studentID;
+    private String studentName;
+    private String studentYear;
+    private String studentGender;
+    // private double creditHoursEarned;
+    // private double pointsEarned;
+
+    // Constructor
+    public Student(String studentID, String studentName, String studentYear, String studentGender) {
+        this.studentID = studentID;
+        this.studentName = studentName;
+        this.studentYear = studentYear;
+        this.studentGender = studentGender;
+        // this.creditHoursEarned = 0;
+        // this.pointsEarned = 0;
+}
+
+    // Abstract method to calculate GPA
+    public abstract double calculateGPA();
+    public abstract double calculateCGPA();
+
+    // Getters and setters
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public String getStudentYear() {
+        return studentYear;
+    }
+
+    public String getStudentGender() {
+        return studentGender;
+    }
+
+    /*
+     * public double getCreditHoursEarned() {
+     * return creditHoursEarned;
+     * }
+     * 
+     * public void setCreditHoursEarned(double creditHoursEarned) {
+     * this.creditHoursEarned = creditHoursEarned;
+     * }
+     * 
+     * public double getPointsEarned() {
+     * return pointsEarned;
+     * }
+     * 
+     * public void setPointsEarned(double pointsEarned) {
+     * this.pointsEarned = pointsEarned;
+     * }
+     */
+}
+
