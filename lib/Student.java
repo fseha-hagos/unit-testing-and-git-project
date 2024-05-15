@@ -1,6 +1,6 @@
-package src;
+package tester;
 
-abstract class Student {
+public abstract class Student {
     private String studentID;
     private String studentName;
     private String studentYear;
@@ -16,7 +16,6 @@ abstract class Student {
         this.studentGender = studentGender;
         // this.creditHoursEarned = 0;
         // this.pointsEarned = 0;
-}
+    }
 
-// Abstract method to calculate GPA
-public abstract double calculateGPA();
+}
