@@ -1,5 +1,7 @@
 
-abstract class Student {
+abstract class Student
+{
+    // Fields
     private String studentID;
     private String studentName;
     private String studentYear;
@@ -15,7 +17,7 @@ abstract class Student {
         this.studentGender = studentGender;
         // this.creditHoursEarned = 0;
         // this.pointsEarned = 0;
-    }
+}
 
     // Abstract method to calculate GPA
     public abstract double calculateGPA();
