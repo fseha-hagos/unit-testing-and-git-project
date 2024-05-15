@@ -20,3 +20,22 @@ abstract class Student {
 
 // Abstract method to calculate GPA
 public abstract double calculateGPA();
+ // Abstract method to calculate CGPA
+    public abstract double calculateCGPA();
+
+    // Getters and setters
+    public String getStudentID() {
+        return studentID;
+    }
+    
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public String getStudentYear() {
+        return studentYear;
+    }
+
+    public String getStudentGender() {
+        return studentGender;
+    }
