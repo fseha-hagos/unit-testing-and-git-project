@@ -41,4 +41,13 @@ public class CourseTest {
         double score = Double.parseDouble(parts[2]);
         assertFalse(score < 1 || score > 4);
     }
+    @Test
+    void testAddStudentScore_ScoreConversion() {
+        Course course = new COACourse("C003", "COA");
+        String result = course.addStudentScore();
+        String[] parts = result.split(",");
+        double score = Double.parseDouble(parts[2]);
+        assertTrue(score == 1 || score == 2 || score == 3 || score == 4);
+    }
 }
+
