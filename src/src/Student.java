@@ -21,5 +21,8 @@ abstract class Student {
 // Abstract method to calculate GPA
 public abstract double calculateGPA();
 public abstract double calculateCGPA();
+public String getStudentID() {
+    return studentID;
+}
 
 
