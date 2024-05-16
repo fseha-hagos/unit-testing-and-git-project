@@ -19,4 +19,16 @@ public class StudentTest {
         // Assert that the gender is null
         assertNull(gender);
     }
+    @Test
+    public void testGetStudentGender_ValidGender_ReturnsGender() {
+        // Create a student object with a valid gender field
+        Student student = new Student("123", "John Doe", "2020", "Male");
+
+        // Test getStudentGender() method
+        String gender = student.getStudentGender();
+
+        // Assert that the gender is "Male"
+        assertEquals("Male", gender);
+    }
+}
 
