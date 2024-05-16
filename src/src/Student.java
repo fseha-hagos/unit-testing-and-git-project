@@ -28,6 +28,9 @@ public String getStudentID() {
 public String getStudentName() {
     return studentName;
 }
+public String getStudentYear() {
+    return studentYear;
+}
 }
 
 
