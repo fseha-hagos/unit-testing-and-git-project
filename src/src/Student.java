@@ -31,6 +31,10 @@ public String getStudentName() {
 public String getStudentYear() {
     return studentYear;
 }
+public String getStudentGender() {
+    return studentGender;
+}
+
 }
 
 
