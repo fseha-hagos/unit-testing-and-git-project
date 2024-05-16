@@ -24,4 +24,12 @@ public class CourseTest {
         // Assert the result
         Assertions.assertEquals("Programming", "95", result);
     }
+    @Test
+    void testAddStudentScore_ValidScore() {
+        Course course = new ProgrammingCourse("C001", "Programming");
+        String result = course.addStudentScore();
+        String[] parts = result.split(",");
+        double score = Double.parseDouble(parts[2]);
+        assertTrue(score >= 1 && score <= 4);
+    }
 }
