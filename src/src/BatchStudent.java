@@ -41,4 +41,24 @@ class BatchStudent extends Student {
         }
         return gpa;
     }
+      // Abstract method to calculate CGPA
+    public double calculateCGPA() {
+        String sID = getStudentID();
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("cgpa.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] g = line.split(",");
+                if (g[0] == sID)
+                    return Double.parseDouble(g[-1]);
+            }
+
+            // if there is no data it returns 0;
+            return cgpa;
+        } catch (Exception e) {
+        }
+        return cgpa;
+    }
+
 }
