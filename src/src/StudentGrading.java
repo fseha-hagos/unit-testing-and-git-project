@@ -1,15 +1,39 @@
 package src;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.Scanner;
 
 public class StudentGrading {
 
+    // this functions creats files that can save al the data needed for the student
+    // registration system.
+    static void createFile() {
+        final String STUDENT_FILE = "student.txt";
+        final String GRADE_FILE = "grade.txt";
+        final String COURSE_FILE = "course.txt";
+        try {
+            File student_file = new File(STUDENT_FILE);
+            File grade_file = new File(GRADE_FILE);
+            File course_file = new File(COURSE_FILE);
+
+            if (student_file.createNewFile() && grade_file.createNewFile() && course_file.createNewFile()) {
+                System.out.println("The File System is created succesfully!");
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (Exception e) {
+            System.out.println("Sorry thereis some problem on creating the file system!!!");
+            System.exit(0);
+        }
+    }
+
     ///////////////////////////////////////////////////
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        createFile();
         // check if course file fills and if not fills it.
 
         while (true) {
