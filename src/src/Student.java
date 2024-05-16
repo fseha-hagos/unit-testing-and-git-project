@@ -25,4 +25,10 @@ public String getStudentID() {
     return studentID;
 }
 
+public String getStudentName() {
+    return studentName;
+}
+}
+
+
 
