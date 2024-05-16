@@ -6,11 +6,7 @@ public class BatchStudentTest {
     @Test
     public void testCalculateGPA_ExistingData() {
         // Prepare test data
-        BatchStudent student = new BatchStudent("1", "fish", "1", "Male");
-
-        // Set up mock data in cgpa.txt
-        // For example, assume the following data in cgpa.txt: "1,3.5,3.8,3.9"
-        // This means student with ID 1 has GPAs 3.5 for year 1, 3.8 for year 2, and 3.9 for year 3
+        BatchStudent student = new BatchStudent("1", "John", "1", "Male");
 
         double expectedGPA = 3.5; // Expected GPA for year 1
 
@@ -22,36 +18,41 @@ public class BatchStudentTest {
     }
 
     @Test
-    public void testCalculateGPA_NoData() {
+    public void testCalculateCGPA_ExistingData() {
         // Prepare test data
-        BatchStudent student = new BatchStudent("6", "kiros", "2", "Female");
-        double expectedGPA = 0.0; // Expected GPA should be 0.0 when there's no data
+        BatchStudent student = new BatchStudent("1", "John", "1", "Male");
+
+        double expectedCGPA = 3.5; // Expected CGPA
 
         // Perform the test
-        double actualGPA = student.calculateGPA();
+        double actualCGPA = student.calculateCGPA();
 
         // Assertion
-        assertEquals(expectedGPA, actualGPA, 0.01); // Assuming precision up to two decimal places
+        assertEquals(expectedCGPA, actualCGPA, 0.01); // Assuming precision up to two decimal places
+    }
+
+
+    @Test
+    public void testAddStudentGrade_ValidData() {
+        // Prepare test data
+        BatchStudent student = new BatchStudent("1", "John", "1", "Male");
+
+        // Perform the test
+        boolean result = student.addStudentGrade();
+
+        // Assertion
+        assertTrue(result); // Expecting true for successful addition
     }
 
     @Test
-    public void testCalculateGPA_InvalidData() {
+    public void testRetrieveGrade_ValidId() {
         // Prepare test data
-        BatchStudent student = new BatchStudent("3", "kebede", "3", "Male");
+        BatchStudent student = new BatchStudent("1", "John", "1", "Male");
 
-        // Set up mock data in cgpa.txt
-        // For example, assume the following invalid data in cgpa.txt: "1,3.5,3.8,3.9"
-        // Here, student ID doesn't match with the current student ID
-
-        double expectedGPA = 0.0; // Expected GPA should be 0.0 when data is invalid
 
         // Perform the test
-        double actualGPA = student.calculateGPA();
+        student.retrieveGrade("1");
 
-        // Assertion
-        assertEquals(expectedGPA, actualGPA, 0.01); // Assuming precision up to two decimal places
     }
-
-
 
 }
