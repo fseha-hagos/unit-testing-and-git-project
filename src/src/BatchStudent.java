@@ -41,7 +41,8 @@ class BatchStudent extends Student {
         }
         return gpa;
     }
-      // Abstract method to calculate CGPA
+
+    // Abstract method to calculate CGPA
     public double calculateCGPA() {
         String sID = getStudentID();
 
@@ -61,4 +62,76 @@ class BatchStudent extends Student {
         return cgpa;
     }
 
+    // adds a student grade and returns true i fadded and flase if not
+    public boolean addStudentGrade() {
+        int totla_c;
+        String ccode = "";
+        String cname = "";
+        String credit = "";
+        int nYear = Integer.parseInt(sYear);
+        try (BufferedReader r = new BufferedReader(new FileReader("course.txt"))) {
+            String line = "";
+            for (int i = 0; i < nYear; i++) {
+                line = r.readLine();
+            }
+            String[] data = line.split(",");
+            totla_c = (data[1].split("/")).length;
+            ccode = data[1];
+            cname = data[2];
+            credit = data[3];
+
+        } catch (Exception e) {
+            return false;
+        }
+        grading = new Grading(sID, sName, sYear, sGeneder);
+        return grading.addStudentGrade(sID, sYear, "" + totla_c, credit, ccode, cname);
+    }
+
+    public void retireiveGrade(String retrieve_id) {
+        String id, name, gender, year, coa, net, ope, pro, credit, gpa, cgpa;
+        if (StudentGrading.checkValidId(retrieve_id) == true) {
+            try (BufferedReader reader = new BufferedReader(new FileReader("student.txt"))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] studentData = line.split(",");
+                    if ((String) studentData[0] == (String) retrieve_id) {
+                        id = (String) retrieve_id;
+                        name = (String) studentData[1];
+                        gender = (String) studentData[2];
+                    }
+                }
+            } catch (Exception e) {
+            }
+            try (BufferedReader reader = new BufferedReader(new FileReader("grade.txt"))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] studentScore = line.split(",");
+                    if ((String) studentScore[0] == (String) retrieve_id) {
+                        year = (String) studentScore[1];
+                        coa = (String) studentScore[2];
+                        net = (String) studentScore[3];
+                        ope = (String) studentScore[4];
+                        pro = (String) studentScore[5];
+
+                    }
+                }
+            } catch (Exception e) {
+            }
+            try (BufferedReader reader = new BufferedReader(new FileReader("cgpa.txt"))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] studentScore = line.split(",");
+                    if ((String) studentScore[0] == (String) retrieve_id) {
+                        year = (String) studentScore[1];
+                        coa = (String) studentScore[2];
+                        net = (String) studentScore[3];
+                        ope = (String) studentScore[4];
+                        pro = (String) studentScore[5];
+
+                    }
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
 }
