@@ -7,9 +7,10 @@ abstract class Course {
     private String courseCode;
     private String courseName;
     private int    credithours;
-    public Course(String c, String n) {
+    public Course(String c, String n,int crh) {
         courseCode = c;
         courseName = n;
+        creditHour=crh;
     }
 
     abstract String addStudentScore();
@@ -22,7 +23,9 @@ abstract class Course {
     public void setCourseName(String name) {
         courseCode = name;
     }
-    
+    public void setCreitHour(int credithour) {
+        creditHour = creditHour;
+    }
     // getter methods
     public String getCourseCode() {
         return courseCode;
