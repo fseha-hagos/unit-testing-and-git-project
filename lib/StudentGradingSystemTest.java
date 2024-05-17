@@ -33,5 +33,20 @@ public class StudentGradingTest {
         double gpa = Double.parseDouble(parts[2]);
         assertTrue(gpa > 0.0 && gpa <= 4.0);
     }
+  @Test
+    public void testCalculateCGPA() {
+        // Set up test data
+        String id = "1234";
+        // Call the method being tested
+        String result = StudentGrading.claclulateCGPA(id);
+        // Verify the result
+        String[] parts = result.split(",");
+        assertEquals(3, parts.length);
+        double totalPoints = Double.parseDouble(parts[0]);
+        double totalCredits = Double.parseDouble(parts[1]);
+        double cgpa = Double.parseDouble(parts[2]);
+        assertTrue(cgpa > 0.0 && cgpa <= 4.0);
+    }
 
+   
   
