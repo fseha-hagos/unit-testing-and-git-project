@@ -27,6 +27,13 @@ class StudentTest {
         assertThrows(IllegalArgumentException.class, () -> new Student(" ", "John Doe", "Sophomore", "Male"));
     }
 
+    
+    @Test
+    void testGetStudentID_NonAlphanumericStudentID_ThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Student("123!45", "John Doe", "Sophomore", "Male"));
+    }
+}
+
 
 
 
