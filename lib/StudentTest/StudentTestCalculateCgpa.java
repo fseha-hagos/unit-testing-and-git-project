@@ -137,6 +137,23 @@ public void calculateCGPA_withMultipleCoursesDifferentGradesAndDifferentWeights_
     // Assert
     assertEquals(3.25, result, "CGPA should be the weighted average of all courses when courses have different types of grades and different weights");
 }
+@Test
+public void calculateCGPA_withMultipleCoursesDifferentGradesAndDifferentWeights_returnsCorrectAverageWithDecimal() {
+    // Arrange
+    Student student = new MockStudent("12345", "John Doe", "Sophomore", "Male");
+    Course course1 = new Course("MATH101", 3.0, 'A');
+    Course course2 = new NewCourse("PHYS201", 4.0, 'B', 1.5);
+    Course course3 = new Course("CHEM101", 2.0, 'C', 0.75);
+    student.addCourse(course1);
+    student.addCourse(course2);
+    student.addCourse(course3);
+
+    // Act
+    double result = student.calculateCGPA();
+
+    // Assert
+    assertEquals(3.25, result, 0.0001, "CGPA should be the weighted average of all courses when courses have different types of grades and different weights");
+}
 
 }
 
