@@ -10,6 +10,9 @@ import java.util.Scanner;
 
 public class StudentGrading {
 
+    public static BatchStudent batch;
+    public Grading grading;
+
     // this functions creats files that can save al the data needed for the student
     // registration system.
     static void createFile() {
@@ -276,6 +279,243 @@ public class StudentGrading {
 
     ////////////////////////////////////////////////
 
+    public static void addStudent(BatchStudent batch) {
+        Scanner scanner = new Scanner(System.in);
+        String id, name, gender;
+        int year;
+        System.out.println("ENTER LEARNING YEAR (1-5) :");
+        year = scanner.nextInt();
+        while (year > 5 && year < 1) {
+            System.out.println("ENTER LEARNING YEAR ONLY(1-5) :");
+            year = scanner.nextInt();
+        }
+        if (year == 1) {
+            System.out.println("ENTER STUDENT NAME :");
+            name = scanner.next();
+            System.out.println("PLEASE ENTER STUDENT GENDER(M/F) :");
+            gender = scanner.next();
+            while ((gender == "M" || gender == "m" || gender == "F" || gender == "f")) {
+                System.out.println("PLEASE ENTER STUDENT GENDER ONLY(M/F) :");
+                gender = scanner.next();
+            }
+            batch = new BatchStudent("0", name, "" + year, gender);
+            batch.addStudentGrade();
+        } else {
+            boolean isValid = false;
+
+            try {
+                System.out.println("ENTER ID :");
+                id = "" + scanner.next();
+                isValid = checkValidId(id);
+                // check if the student has grade on the specified year.
+
+                int max = 0;
+                while (!isValid && max != 3) {
+                    System.out.println("PLEASE ENTER VALID ID :");
+                    id = scanner.nextLine();
+                    isValid = checkValidId(id);
+                    System.out.println(isValid);
+                    if (max == 3) {
+                        System.out.println("max limit imit.");
+                        break;
+                    }
+                    max++;
+                }
+                if (isValid) {
+                    // check if the specified student has been graded
+                    try (BufferedReader r = new BufferedReader(new FileReader("grade.txt"))) {
+
+                        String line;
+                        while ((line = r.readLine()) != null) {
+                            String[] data = line.split(",");
+
+                            if (data[0].equals(id) && data[1].equals("" + year)) {
+                                System.out.println("UNFORTUNATELY THE DATA HAS BEEN ENTERD BEFORE!");
+                                System.out.println("DO YOU WANT TO EDIT THE DATA (Y/N) :");
+                                Scanner s = new Scanner(System.in);
+                                String in = s.nextLine();
+                                if (in.equals("y") || in.equals("Y")) {
+                                    editScore();
+                                    return;
+                                } else {
+                                    return;
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                    }
+
+                    try (BufferedReader reader = new BufferedReader(new FileReader("student.txt"))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            String[] studentData = line.split(",");
+                            String the_id = (String) studentData[0];
+
+                            if (the_id.equals(id)) {
+
+                                name = (String) studentData[1];
+                                gender = (String) studentData[2];
+                                batch = new BatchStudent(id, name, "" + year, gender);
+                                batch.addStudentGrade();
+                                break;
+                            }
+                        }
+                    } catch (Exception e) {
+                    }
+
+                }
+            } catch (Exception e) {
+            }
+        }
+
+    }
+
+    //////////////////////////////////////////////////
+
+    public static void editScore() {
+        String id, year;
+        boolean valid = false;
+        int trial = 0;
+        System.out.println("+++++++++++++++++++++++++++++++++++");
+        System.out.println("+++++++++++++++++++++++++++++++++++");
+        System.out.println("++++                            +++++++");
+        System.out.println("+++YOU HAVE ENTERED THE EDITING MOOD.+++");
+        System.out.println("++++                            +++++++");
+        System.out.println("+++++++++++++++++++++++++++++++++++");
+        System.out.println("+++++++++++++++++++++++++++++++++++");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("ENTER ID TO EDIT :");
+        id = legalId();
+
+        if (id != null) {
+            System.out.println("WHICH YEAR DO YOU WANT TO EDIT :");
+            year = legalYear(id);
+            if (year != null) {
+                try (BufferedReader read = new BufferedReader(new FileReader("grade.txt"))) {
+                    String line;
+                    while ((line = read.readLine()) != null) {
+                        String[] data = line.split(",");
+
+                        if (data[0].equals(id)) {
+                            System.out.println("YOU ARE IN THE EDITING INERFACE AND BE CAREFUL WITH THE EDITING!");
+                            // ''''''''''''''''''''''''''''''''''''''''''''''
+                        }
+                    }
+
+                } catch (Exception e) {
+                }
+
+            } // if year
+        } // if id
+    }
+    ///////////////////////////////////////////////////////
+
+    public static boolean checkValidId(String check_id) {
+        String id;
+        boolean valid;
+        try (BufferedReader reader = new BufferedReader(new FileReader("student.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] studentData = line.split(",");
+                id = (String) studentData[0];
+
+                if (id.equals(check_id)) {
+                    return true;
+                }
+            }
+        }
+
+        catch (Exception e) {
+            return false;
+        }
+        return false;
+
+    }
+
+    public static String claclulateGPA(String id, String year) {
+        double tgpa = 0;
+        double tch = 0;
+        double tpoint = 0;
+        boolean found = false;
+        try (BufferedReader cgpa_reader = new BufferedReader(new FileReader("grade.txt"))) {
+
+            String line;
+
+            while ((line = cgpa_reader.readLine()) != null && !found) {
+                String[] ids = (line.split(","));
+
+                if (ids[0].equals(id) && ids[1].equals(year)) {
+                    String[] sco = ids[2].split("/");
+                    String[] cre = ids[3].split("/");
+                    for (int p = 0; p < sco.length; p++) {
+                        tpoint = tpoint + (Double.parseDouble(sco[p]) * Double.parseDouble(cre[p]));
+                        tch = tch + Double.parseDouble(cre[p]);
+                    }
+                    found = true;
+                    // tgpa = tgpa + (Double.parseDouble(ids[3]));
+                    // tch += (Double.parseDouble(ids[4]));
+                }
+
+            }
+
+        } catch (Exception e) {
+        }
+        // returns format total_point,total_credit,gpa
+        return "" + tpoint + "," + tch + "," + (tpoint / tch);
+        // System.out.println("tpoint:"+tpoint);
+        // System.out.println(("tch:"+tch));
+        // System.out.println("gpa:"+(tpoint/tch));
+
+    }
+
+    // return ""+cgpa_total_points+","+cgpa_total_credit+","+cgpa;
+    public static String claclulateCGPA(String id) {
+        double gpa = 0;
+        double tgpa = 0;
+        double tch = 0;
+        double tpoint = 0;
+        double cgpa_total_points = 0;
+        double cgpa_total_credit = 0;
+        double cgpa = 0;
+        boolean found = false;
+        try (BufferedReader cgpa_reader = new BufferedReader(new FileReader("grade.txt"))) {
+
+            String line;
+
+            while ((line = cgpa_reader.readLine()) != null) {
+                String[] ids = (line.split(","));
+
+                if (ids[0].equals(id)) {
+                    String yr = ids[1];
+
+                    String[] cre = ids[3].split("/");
+                    String[] sco = ids[2].split("/");
+                    for (int p = 0; p < sco.length; p++) {
+
+                        tpoint = tpoint + (Double.parseDouble(sco[p]) * Double.parseDouble(cre[p]));
+                        tch = tch + Double.parseDouble(cre[p]);
+                    }
+                    gpa = (tpoint / tch);
+                    cgpa_total_points = cgpa_total_points + (gpa * tch);
+                    cgpa_total_credit = cgpa_total_credit + tch;
+                    // tgpa = tgpa + (Double.parseDouble(ids[3]));
+                    // tch += (Double.parseDouble(ids[4]));
+                }
+
+            }
+            cgpa = cgpa_total_points / cgpa_total_credit;
+        } catch (Exception e) {
+        }
+        return "" + cgpa_total_points + "," + cgpa_total_credit + "," + cgpa;
+        // System.out.println("cgpa_total_points:"+cgpa_total_points);
+        // System.out.println(("cgpa_total_credit:"+cgpa_total_credit));
+        // System.out.println("cgpa:"+cgpa);
+
+    }
+
+    ///////////////////////////////////////////////////////
+
     public static void main(String[] args) {
 
         createFile();
@@ -311,22 +551,24 @@ public class StudentGrading {
                 switch (choice) {
                     case 1:
                         // ADD STUDENT SCORE"
-                        // addStudent();
-                        System.out.println("add a new studnt.");
+                        addStudent(batch);
+                        // System.out.println("add a new studnt.");
                         break;
                     case 2:
                         // EDIT STUDENT SCORE
                         // editScore();
-                        System.out.println("edit the student file");
+                        // System.out.println("edit the student file");
                         break;
                     case 3:
                         // DISPLAY GRADE
-                        System.out.println("displays a single student grade");
+
                         break;
+                    // System.out.println("displays a single student grade");
+
                     case 4:
                         // DISPLAY GRADE
-                        System.out.println("display all student grade.");
-                        // displayAll();
+                        // System.out.println("display all student grade.");
+
                         break;
                     case 5:
                         // DELETE STUDENT
