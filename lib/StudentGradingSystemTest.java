@@ -47,6 +47,40 @@ public class StudentGradingTest {
         double cgpa = Double.parseDouble(parts[2]);
         assertTrue(cgpa > 0.0 && cgpa <= 4.0);
     }
+  @Test
+    public void testCalculateCGPA() {
+        // Set up test data
+        String id = "1234";
+        // Call the method being tested
+        String result = StudentGrading.claclulateCGPA(id);
+        // Verify the result
+        String[] parts = result.split(",");
+        assertEquals(3, parts.length);
+        double totalPoints = Double.parseDouble(parts[0]);
+        double totalCredits = Double.parseDouble(parts[1]);
+        double cgpa = Double.parseDouble(parts[2]);
+        assertTrue(cgpa > 0.0 && cgpa <= 4.0);
+    }
 
+    @Test
+    public void testAddStudent() {
+        // Set up test data
+        String testInput = "1\nJohn Doe\nM\n";
+        InputStream savedInput = System.in;
+        try {
+            System.setIn(new ByteArrayInputStream(testInput.getBytes()));
+            // Call the method being tested
+            StudentGrading.batch = null;
+            StudentGrading.addStudent(null);
+            // Verify the result
+            assertNotNull(StudentGrading.batch);
+            assertEquals("John Doe", StudentGrading.batch.getName());
+            assertEquals("M", StudentGrading.batch.getGender());
+        } finally {
+            System.setIn(savedInput);
+        }
+    }
+
+ 
    
   
