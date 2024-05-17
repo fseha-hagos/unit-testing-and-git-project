@@ -21,6 +21,11 @@ class StudentTest {
     void testGetStudentID_EmptyStudentID_ThrowsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new Student("", "John Doe", "Sophomore", "Male"));
     }
+    
+    @Test
+    void testGetStudentID_BlankStudentID_ThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Student(" ", "John Doe", "Sophomore", "Male"));
+    }
 
 
 
