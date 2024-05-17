@@ -721,6 +721,59 @@ public class StudentGrading {
         return line;
     }
 
+    public static void deleteAccount(String id) {
+
+        try {
+            File input = new File("grade.txt");
+            File temp = new File("temp.txt");
+            BufferedReader reader = new BufferedReader(new FileReader("grade.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
+            String current;
+            while ((current = reader.readLine()) != null) {
+                String[] ids = (current.split(","));
+                if (ids[0].equals(id)) {
+                    continue;
+                }
+                writer.write(current + System.getProperty("line.separator"));
+            }
+            writer.close();
+            reader.close();
+            if (!input.delete()) {
+                System.out.println("could not delete orginal file");
+            }
+            if (!temp.renameTo(input)) {
+                System.out.println("could not rename the temp file");
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            File input = new File("student.txt");
+            File temp = new File("temp.txt");
+            BufferedReader reader = new BufferedReader(new FileReader("student.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("temp.txt"));
+            String current;
+
+            while ((current = reader.readLine()) != null) {
+                String[] ids = (current.split(","));
+                if (ids[0].equals(id)) {
+                    continue;
+                }
+                writer.write(current + System.getProperty("line.separator"));
+            }
+            writer.close();
+            reader.close();
+            if (!input.delete()) {
+                System.out.println("could not delete orginal file");
+            }
+            if (!temp.renameTo(input)) {
+                System.out.println("could not rename the temp file");
+            }
+        } catch (Exception e) {
+        }
+
+    }
+
     public static void main(String[] args) {
 
         createFile();
@@ -766,18 +819,27 @@ public class StudentGrading {
                         break;
                     case 3:
                         // DISPLAY GRADE
-
+                        String id = legalId();
+                        if (id != null) {
+                            String year = legalYear(id);
+                            if (year != null)
+                                displayGrade(id, year);
+                            else {
+                                displayGrade(id, "");
+                            }
+                        }
                         break;
                     // System.out.println("displays a single student grade");
 
                     case 4:
                         // DISPLAY GRADE
                         // System.out.println("display all student grade.");
-
+                        displayAll();
                         break;
                     case 5:
                         // DELETE STUDENT
-                        // deleteAccount();
+                        String idd = legalId();
+                        deleteAccount(idd);
                         System.out.println("deletes a studetn from the file");
                         break;
                     case 6:
