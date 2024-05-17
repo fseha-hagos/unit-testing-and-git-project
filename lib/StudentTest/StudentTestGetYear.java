@@ -35,6 +35,18 @@ public class StudentTest{
     public void testGetStudentYear_EmptyString_ThrowsException() {
         assertThrows(IllegalArgumentException.class, () -> student.setStudentYear(""), "Expected exception when student year is an empty string");
     }
+    
+    @Test
+    public void testGetStudentYear_Null_ReturnsDefault() {
+        student.setStudentYear(null);
+        assertEquals("Freshman", student.getStudentYear(), "Expected default value when student year is null");
+    }
+
+    @Test
+    public void testGetStudentYear_Null_ThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> student.setStudentYear(null), "Expected exception when student year is null");
+    }
+}
 
         
 
