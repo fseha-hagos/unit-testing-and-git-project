@@ -7,7 +7,7 @@ abstract class Course {
     private String courseCode;
     private String courseName;
     private int credithour;
-    public Course(String c, String n) {
+    public Course(String c, String n,int chr) {
         courseCode = c;
         courseName = n;
 	coursecredithour=chr;
