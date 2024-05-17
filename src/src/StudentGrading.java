@@ -15,7 +15,7 @@ public class StudentGrading {
 
     // this functions creats files that can save al the data needed for the student
     // registration system.
-    static void createFile() {
+    public static void createFile() {
         final String STUDENT_FILE = "student.txt";
         final String GRADE_FILE = "grade.txt";
         final String COURSE_FILE = "course.txt";
@@ -36,7 +36,7 @@ public class StudentGrading {
     }
 
     ///////////////////////////////////////////////////
-    public static void preInputFiles() {
+    public static boolean preInputFiles() {
         Scanner scanner = new Scanner(System.in);
         String[] year_one_ccode = { "pr", "cn", "coa", "os" };
         String[] year_one_cname = { "Programming", "Networking", "COA", "Operating" };
@@ -161,7 +161,7 @@ public class StudentGrading {
                                 if (l.equals("z")) {
                                     trial = max_trial;
                                     forbreaker = true;
-                                    return;
+
                                 }
                                 ;
                             }
@@ -271,8 +271,10 @@ public class StudentGrading {
             }
             five = "5," + five_ccode + "," + five_cname + "," + five_chour + "\n";
             c_writer.write(one + two + three + four + five);
+            return true;
         } catch (Exception e) {
 
+            return false;
         }
 
     }// end function pre input
@@ -782,7 +784,7 @@ public class StudentGrading {
         try (BufferedReader c_reader = new BufferedReader(new FileReader("course.txt"))) {
             String line = c_reader.readLine();
             if (line == null) {
-                preInputFiles();
+                boolean input = preInputFiles();
             }
             c_reader.close();
 
