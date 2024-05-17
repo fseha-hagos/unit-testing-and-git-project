@@ -6,10 +6,11 @@ import java.util.Scanner;
 abstract class Course {
     private String courseCode;
     private String courseName;
-
+    private int credithour;
     public Course(String c, String n) {
         courseCode = c;
         courseName = n;
+	coursecredithour=cr;
     }
 
     abstract String addStudentScore();
@@ -22,7 +23,9 @@ abstract class Course {
     public void setCourseName(String name) {
         courseCode = name;
     }
-
+    public void setcrediihour(int credithour)
+	coursecredithour = credit hour;
+	}
     // getter methods
     public String getCourseCode() {
         return courseCode;
@@ -31,7 +34,8 @@ abstract class Course {
     public String getCourseName() {
         return courseName;
     }
-
+    public int getCredithour() {
+        return credithour; 
 }
 import java.util.ArrayList;
 
