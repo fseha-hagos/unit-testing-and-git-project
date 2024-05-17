@@ -560,6 +560,167 @@ public class StudentGrading {
         return null;
     }
 
+    public static void displayAll() {
+        String cline = "";
+        try (BufferedReader c_reader = new BufferedReader(new FileReader("course.txt"))) {
+            String cur;
+            while ((cur = c_reader.readLine()) != null) {
+                cline = cline + cur + System.getProperty("line.separator");
+            }
+        } catch (Exception e) {
+        }
+
+        for (int b = 1; b <= 5; b++) {
+
+            try (BufferedReader g_reader = new BufferedReader(new FileReader("grade.txt"))) {
+                String current_grade, name = "", gender = "", id = "";
+                System.out.println("ACADAMIC YEAR : " + b);
+                System.out.println();
+                System.out.print("ID\tNAME\tGENDER\t\t");
+                String[] c = cline.split("\n");
+
+                // prints the course code
+                System.out.print(displayGrade(((c[b]).split(","))[1]));
+                System.out.print("POINT\tCREDIT\tGPA\t\n");
+                while ((current_grade = g_reader.readLine()) != null) {
+                    String[] line_grade = current_grade.split(",");
+                    if (line_grade[1].equals("" + b)) {
+                        BufferedReader s_reader = new BufferedReader(new FileReader("student.txt"));
+                        String line;
+                        while ((line = s_reader.readLine()) != null) {
+                            if ((line.split(","))[0].equals(line_grade[0])) {
+                                name = line.split(",")[1];
+                                gender = line.split(",")[2];
+                                id = line_grade[0];
+                                break;
+                            }
+                        }
+
+                        System.out.println("----------------------------------------");
+
+                        if (gender.equals("m") || gender.equals("M")) {
+                            gender = "MALE";
+                        } else {
+                            gender = "FEMALE";
+                        }
+                        System.out.print(id + "\t" + name + "\t" + gender + "\t\t");
+                        String grade = displayGrade(line_grade[2]);
+                        String[] gpa = claclulateGPA(line_grade[0], line_grade[1]).split(",");
+                        System.out.print(grade + gpa[0] + "\t" + gpa[1] + "\t" + gpa[2] + "\t");
+                        System.out.print("\n===============================================\n");
+                    }
+
+                }
+            } catch (Exception e) {
+            }
+        }
+
+        /*
+         * try(BufferedReader reader = new BufferedReader(new
+         * FileReader("student.txt"))){
+         * String current;
+         * while((current = reader.readLine()) != null){
+         * String []line = current.split(",");
+         * for(int i = 0;i<line.length; i++){
+         * System.out.print(line[i]+"\t");
+         * }}
+         * 
+         * }catch(Exception e){}
+         */
+    }
+
+    public static void displayGrade(String idd, String year) {
+        String name = "";
+        String gender = "";
+        String id = "";
+        String grade_collect = "";
+        String cgpa;
+        id = idd;
+
+        try (BufferedReader s_read = new BufferedReader(new FileReader("student.txt"))) {
+            String line;
+            while ((line = s_read.readLine()) != null) {
+                if ((line.split(","))[0].equals(id)) {
+                    name = line.split(",")[1];
+                    gender = line.split(",")[2];
+                    break;
+                }
+            }
+            System.out.println("\n\n");
+            System.out.println("=====================================");
+            System.out.println("=====================================");
+            if (gender.equals("m") || gender.equals("M")) {
+                gender = "MALE";
+            } else {
+                gender = "FEMALE";
+            }
+            System.out.println("ID :" + id + "\tNAME :" + name + "\tGENDER :" + gender);
+            System.out.println("-------------------------------------");
+        } catch (Exception e) {
+            System.out.println("SORRY THE SPECIFIED ID DOES NOT HAVE VALUE.");
+        }
+
+        try (BufferedReader s_read = new BufferedReader(new FileReader("course.txt"))) {
+            String current, ccode = "", cname;
+            boolean found = false;
+            while ((current = s_read.readLine()) != null && !found) {
+                String[] line = current.split(",");
+                if (line[0].equals(year)) {
+                    found = true;
+                    ccode = displayGrade(line[1]);
+                    cname = displayGrade(line[2]);
+                    break;
+                }
+            }
+            if (found) {
+                System.out.println("ACADAMIC YEAR : " + year + "\n");
+                System.out.println(ccode + " POINT\t" + "CREDIT H.\t" + "GPA\t");
+            }
+        } catch (Exception e) {
+            System.out.println("SORRY THE SPECIFIED ID DOES NOT HAVE VALUE.");
+        }
+        try (BufferedReader s_read = new BufferedReader(new FileReader("grade.txt"))) {
+            String current;
+
+            while ((current = s_read.readLine()) != null) {
+                String[] word = current.split(",");
+                if (word[0].equals(idd) && word[1].equals(year)) {
+                    String grade = displayGrade(word[2]);
+                    String[] gpa = claclulateGPA(idd, year).split(",");
+
+                    System.out.println(grade + gpa[0] + "\t" + gpa[1] + "\t  " + gpa[2]);
+
+                }
+            }
+            System.out.println("===============================================================");
+            String[] ccgpa = claclulateCGPA(idd).split(",");
+            System.out.println("CGPA OF STUDENT");
+            System.out.println("POINT\tCREDIT H.\tGPA\t");
+            System.out.println(ccgpa[0] + "\t" + ccgpa[1] + "\t  " + ccgpa[2]);
+            System.out.println("===============================================================");
+
+        } catch (Exception e) {
+        }
+
+        /////////////////////////////////
+        ////////////////////////////////
+        ///////////////////////////////
+        /////////////////////////////////
+        /////////////////////////////////////
+
+        // String[] da = data[j].split(",");
+
+    }
+
+    public static String displayGrade(String data) {
+        String line = "";
+        String[] word = data.split("/");
+        for (int i = 0; i < word.length; i++) {
+            line = line + word[i] + "\t";
+        }
+        return line;
+    }
+
     public static void main(String[] args) {
 
         createFile();
