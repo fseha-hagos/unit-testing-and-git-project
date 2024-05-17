@@ -11,5 +11,17 @@ class StudentTest {
         Student student = new Student("12345", "John Doe", "Sophomore", "Male");
         assertEquals("12345", student.getStudentID());
     }
+    
+    @Test
+    void testGetStudentID_NullStudentID_ThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Student(null, "John Doe", "Sophomore", "Male"));
+    }
+
+    @Test
+    void testGetStudentID_EmptyStudentID_ThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Student("", "John Doe", "Sophomore", "Male"));
+    }
+
+
 
 
