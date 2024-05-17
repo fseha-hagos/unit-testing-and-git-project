@@ -56,6 +56,18 @@ public class StudentTest {
         // Assert
         assertEquals(3.1666666666666665, result, "CGPA should be calculated correctly for weighted grades");
     }
+   
+    @Test
+    public void calculateCGPA_withNoCourses_returnsZero() {
+        // Arrange
+        Student student = new MockStudent("12345", "John Doe", "Sophomore", "Male");
+    
+        // Act
+        double result = student.calculateCGPA();
+    
+        // Assert
+        assertEquals(0.0, result, "CGPA should be 0.0 when no courses are added");
+    }
     @Test
 public void calculateCGPA_withMultipleCoursesDifferentGrades_returnsWeightedAverage() {
     // Arrange
