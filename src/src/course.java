@@ -10,7 +10,7 @@ abstract class Course {
     public Course(String c, String n) {
         courseCode = c;
         courseName = n;
-	coursecredithour=cr;
+	coursecredithour=chr;
     }
 
     abstract String addStudentScore();
