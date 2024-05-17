@@ -39,3 +39,21 @@ public class StudentTest {
         assertEquals(3.25, result, "CGPA should be calculated correctly for valid grades");
     }
     
+    @Test
+    public void calculateCGPA_withWeightedGrades_returnsCorrectCGPA() {
+        // Arrange
+        Course course1 = new Course("MATH101", 3.0, 'A');
+        Course course2 = new Course("PHYS201", 4.0, 'B');
+        Course course3 = new Course("CHEM101", 2.0, 'C');
+        student.addCourse(course1);
+        student.addCourse(course2);
+        student.addCourse(course3);
+
+        // Act
+        double result = student.calculateCGPA();
+
+        // Assert
+        assertEquals(3.1666666666666665, result, "CGPA should be calculated correctly for weighted grades");
+    }
+}
+
