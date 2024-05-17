@@ -516,6 +516,50 @@ public class StudentGrading {
 
     ///////////////////////////////////////////////////////
 
+    public static String legalId() {
+        String i;
+        Scanner s = new Scanner(System.in);
+        System.out.println("ENTER ID :");
+        i = s.nextLine();
+        int max = 0;
+        boolean valid = checkValidId(i);
+        while (!valid && max != 3) {
+            System.out.println("PLEASE ENTER VALID ID :");
+            i = s.nextLine();
+            max++;
+            valid = checkValidId(i);
+        }
+        if (valid)
+            return i;
+        else
+            return null;
+    }
+
+    //////////////////////////////////////////////////////////
+    public static String legalYear(String ids) {
+
+        try (BufferedReader rr = new BufferedReader(new FileReader("grade.txt"))) {
+            Scanner scan = new Scanner(System.in);
+            String current = null, year;
+            int trial = 0;
+            System.out.println("ENTER STUDENT YEAR :");
+            year = scan.nextLine();
+            while ((current = rr.readLine()) != null && trial != 3) {
+                String[] data = current.split(",");
+                if (ids.equals(data[0]) && year.equals(data[1])) {
+                    return year;
+                }
+                System.out.println("PLEASE ENTER ACADAMIC YEAR :");
+                year = scan.nextLine();
+                trial++;
+            }
+
+        } catch (Exception e) {
+            return null;
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
 
         createFile();
