@@ -308,14 +308,14 @@ public class StudentGrading {
             try {
                 System.out.println("ENTER ID :");
                 id = "" + scanner.next();
-                isValid = checkValidId(id);
+                isValid = checkValidId(id, "student.txt");
                 // check if the student has grade on the specified year.
 
                 int max = 0;
                 while (!isValid && max != 3) {
                     System.out.println("PLEASE ENTER VALID ID :");
                     id = scanner.nextLine();
-                    isValid = checkValidId(id);
+                    isValid = checkValidId(id, "student.txt");
                     System.out.println(isValid);
                     if (max == 3) {
                         System.out.println("max limit imit.");
@@ -392,7 +392,7 @@ public class StudentGrading {
 
         if (id != null) {
             System.out.println("WHICH YEAR DO YOU WANT TO EDIT :");
-            year = legalYear(id);
+            year = legalYear(id, "grade.txt");
             if (year != null) {
                 try (BufferedReader read = new BufferedReader(new FileReader("grade.txt"))) {
                     String line;
@@ -413,10 +413,10 @@ public class StudentGrading {
     }
     ///////////////////////////////////////////////////////
 
-    public static boolean checkValidId(String check_id) {
+    public static boolean checkValidId(String check_id, String student_file_name) {
         String id;
         boolean valid;
-        try (BufferedReader reader = new BufferedReader(new FileReader("student.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(student_file_name))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] studentData = line.split(",");
@@ -524,12 +524,12 @@ public class StudentGrading {
         System.out.println("ENTER ID :");
         i = s.nextLine();
         int max = 0;
-        boolean valid = checkValidId(i);
+        boolean valid = checkValidId(i, "student.txt");
         while (!valid && max != 3) {
             System.out.println("PLEASE ENTER VALID ID :");
             i = s.nextLine();
             max++;
-            valid = checkValidId(i);
+            valid = checkValidId(i, "student.txt");
         }
         if (valid)
             return i;
@@ -538,9 +538,9 @@ public class StudentGrading {
     }
 
     //////////////////////////////////////////////////////////
-    public static String legalYear(String ids) {
+    public static String legalYear(String ids, String grade_file_name) {
 
-        try (BufferedReader rr = new BufferedReader(new FileReader("grade.txt"))) {
+        try (BufferedReader rr = new BufferedReader(new FileReader(grade_file_name))) {
             Scanner scan = new Scanner(System.in);
             String current = null, year;
             int trial = 0;
@@ -823,7 +823,7 @@ public class StudentGrading {
                         // DISPLAY GRADE
                         String id = legalId();
                         if (id != null) {
-                            String year = legalYear(id);
+                            String year = legalYear(id, "grade.txt");
                             if (year != null)
                                 displayGrade(id, year);
                             else {

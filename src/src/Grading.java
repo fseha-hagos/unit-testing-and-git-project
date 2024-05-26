@@ -24,7 +24,7 @@ class Grading {
 
     }
 
-    public boolean AddStudentGrade(String _id, String year, String total_course, String formated_credit, String ccode,
+    public boolean addStudentGrade(String _id, String year, String total_course, String formated_credit, String ccode,
             String cname) {
         boolean senior = false;
         format_credit = formated_credit.split("/");

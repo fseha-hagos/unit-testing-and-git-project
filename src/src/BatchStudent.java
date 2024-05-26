@@ -1,4 +1,5 @@
 package src;
+
 import java.io.*;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -89,7 +90,7 @@ class BatchStudent extends Student {
 
     public void retireiveGrade(String retrieve_id) {
         String id, name, gender, year, coa, net, ope, pro, credit, gpa, cgpa;
-        if (StudentGrading.checkValidId(retrieve_id) == true) {
+        if (StudentGrading.checkValidId(retrieve_id, "student.txt") == true) {
             try (BufferedReader reader = new BufferedReader(new FileReader("student.txt"))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
