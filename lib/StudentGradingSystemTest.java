@@ -1,6 +1,13 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 import src.StudentGrading;
 
@@ -83,10 +90,8 @@ class StudentGradingTest {
     public void testIOException() throws IOException {
         // Simulate an IOException by providing a non-existent file
         String nonexistentFile = "nonexistent.txt";
-        assertFalse(studentGrading.checkValidId(checkValidId(nonexistentFile)));
+        assertFalse(studentGrading.checkValidId(nonexistentFile));
     }
-
-}
 
     // test for legalYear
 
